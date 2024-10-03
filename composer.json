@@ -1,0 +1,34 @@
+{
+    "name": "weijiajia/ip-address",
+    "description": "IP address information query system, integrating multiple IP geographic location services",
+    "type": "library",
+    "keywords": [
+        "ip address",
+        "ip info"
+    ],
+    "homepage": "https://github.com/jackchang1025/ip-address",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "weijiajia",
+            "email": "shadowmatthew1025@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "saloonphp/saloon": "^3.10",
+        "psr/log": "^3.0",
+      "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Weijiajia\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
