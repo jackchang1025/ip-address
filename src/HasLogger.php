@@ -2,10 +2,9 @@
 
 namespace Weijiajia;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Saloon\Http\PendingRequest;
+use Saloon\Http\Response;
 
 trait HasLogger
 {
@@ -24,12 +23,12 @@ trait HasLogger
 
     protected function defaultRequestMiddle(): \Closure
     {
-        return function (RequestInterface $request){
+        return function (PendingRequest $request){
             $this->getLogger()?->debug('request', [
                 'method'  => $request->getMethod(),
                 'uri'     => (string) $request->getUri(),
-                'headers' => $request->getHeaders(),
-                'body'    => (string)$request->getBody(),
+                'headers' => $request->headers(),
+                'body'    => (string)$request->body(),
             ]);
             return $request;
         };
@@ -37,11 +36,11 @@ trait HasLogger
 
     protected function defaultResponseMiddle(): \Closure
     {
-        return function (ResponseInterface $response){
+        return function (Response $response){
             $this->getLogger()?->debug('response', [
-                'status'  => $response->getStatusCode(),
-                'headers' => $response->getHeaders(),
-                'body'    => (string) $response->getBody(),
+                'status'  => $response->status(),
+                'headers' => $response->headers(),
+                'body'    => $response->body(),
             ]);
             return $response;
         };

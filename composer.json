@@ -26,9 +26,20 @@
             "Weijiajia\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Weijiajia\\Tests\\": "tests/"
+        }
+    },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "pestphp/pest": "^3.2"
+    }
 }

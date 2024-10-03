@@ -19,6 +19,4 @@ yarn-error.log
 /.idea
 /.vscode
 
-tests/
-
 /composer.lock

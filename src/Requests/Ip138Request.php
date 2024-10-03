@@ -64,7 +64,7 @@ class Ip138Request extends Request
     {
         $json = $response->json();
         if (!isset($json['data']) || !is_array($json['data']) || count($json['data']) < 3) {
-            throw new IpLookupException($response, 'Invalid response format from Ip138');
+            throw new IpLookupException($response, $response->body());
         }
 
         return new IpResponse([

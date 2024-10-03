@@ -126,6 +126,16 @@ class NewProviderRequest extends Request
         ]);
     }
 }
+
+// 使用新的 IP 地理位置服务提供商
+$connector = new IpConnector();
+
+$request = new NewProviderRequest('your ip address');
+$response = $connector->send($request);
+
+$ipInfo = $response->dto();
+echo $ipInfo->getCity(); // 输出城市信息
+echo $ipInfo->getAddr(); // 输出详细地址
 ```
 
 ## 参考文档
