@@ -79,7 +79,7 @@ class PconLineRequest extends Request
             'ip'        => $data['ip'] ?? null,
             'city_code' => $data['cityCode'] ?? null,
             'pro_code'  => $data['proCode'] ?? null,
-            'is_chain'  => (isset($data['code'], $data['pro_code']) && $data['code'] !== '0' && $data['pro_code'] !== '999999'),
+            'is_chain'  => (isset($data['proCode']) && $data['proCode'] !== '999999'),
         ]);
     }
 }
