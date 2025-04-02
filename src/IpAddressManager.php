@@ -1,6 +1,6 @@
 <?php
 
-namespace Weijiajia\HttpProxyManager;
+namespace Weijiajia\IpAddress;
 
 use Illuminate\Support\Manager;
 use Weijiajia\IpAddress\Request;

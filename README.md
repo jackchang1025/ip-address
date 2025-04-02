@@ -28,6 +28,14 @@ Ip Address 是一个 IP 地址信息查询系统,集成了多个 IP 地理位置
 composer require weijiajia/ip-address
 ```
 
+首先，发布配置文件：
+
+```bash
+php artisan vendor:publish --provider="Weijiajia\IpAddress\IpAddressServiceProvider"
+```
+
+这将在 `config/http-proxy-manager.php` 创建配置文件。
+
 ## 使用方法
 ### 使用 pconline
 
