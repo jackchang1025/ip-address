@@ -32,17 +32,17 @@ class IpAddressManager extends Manager
 
     protected function createMyipDriver(): Request
     {
-        return $this->createConnector(MyIpRequest::class);
+        return $this->container->make(MyIpRequest::class);
     }
 
     protected function createPconlineDriver(): Request
     {
-        return $this->createConnector(PconLineRequest::class);
+        return $this->container->make(PconLineRequest::class);
     }
 
     protected function createIp138Driver(): Request
     {
-        return $this->createConnector(Ip138Request::class,['token' => $this->config->get('ip-address.ip138.token')]);
+        return $this->container->make(Ip138Request::class,['token' => $this->config->get('ip-address.ip138.token')]);
     }
 
     /**
