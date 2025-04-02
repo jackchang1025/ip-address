@@ -1,10 +1,9 @@
 <?php
 
-use Weijiajia\Exception\IpLookupException;
-use Weijiajia\IpConnector;
-use Weijiajia\Requests\Ip138Request;
-use Weijiajia\Requests\PconLineRequest;
-use Weijiajia\Responses\IpResponse;
+use Weijiajia\IpAddress\Requests\Ip138Request;
+use Weijiajia\IpAddress\Requests\PconLineRequest;
+use Weijiajia\IpAddress\IpResponse;
+use  Weijiajia\IpAddress\Requests\MyIpRequest;
 
 test('example',  function () {
     expect(true)->toBeTrue();
@@ -13,24 +12,21 @@ test('example',  function () {
 
 test('pconline example',  function () {
 
-    $connector = new IpConnector();
+    $request = new MyIpRequest();
 
-    //可选:设置超时
-    $connector->config()->add('timeout',30);
+    $request->withProxyEnabled(false);
+    $ipInfo = $request->request();
 
-    $request = new PconLineRequest('172.16.30.10');
-    $response = $connector->send($request);
 
-    /**
-     * @var IpResponse $ipInfo
-     */
-    $ipInfo = $response->dto();
+    $request = new PconLineRequest($ipInfo->getIp());
+    $request->withProxyEnabled(false);
+    $response = $request->request();
 
-    expect($ipInfo)
+    expect($response)
         ->toBeInstanceOf(IpResponse::class)
-        ->and($ipInfo->getIp())
-        ->toBe('172.16.30.10')
-        ->and($ipInfo->getAddr())
+        ->and($response->getIp())
+        ->toBe($ipInfo->getIp())
+        ->and($response->getAddr())
         ->not
         ->toBeNull();
 });
@@ -38,14 +34,25 @@ test('pconline example',  function () {
 
 test('Ip138Request example',  function () {
 
-    $connector = new IpConnector();
 
     $request = new Ip138Request('xxxxxx', '172.16.30.10');
-    $response = $connector->send($request);
+    $request->withProxyEnabled(false);
+    $request->request();
 
-    /**
-     * @var IpResponse $ipInfo
-     */
-    $ipInfo = $response->dto();
+})->throws(\Saloon\Exceptions\Request\RequestException::class);
 
-})->throws(IpLookupException::class);
+
+it('myip example',  function () {
+    
+    $request = new MyIpRequest();
+
+    $request->withProxyEnabled(false);
+    $ipInfo = $request->request();
+
+    expect($ipInfo)
+        ->toBeInstanceOf(IpResponse::class)
+        ->and($ipInfo->getIp())
+        ->not
+        ->toBeNull();
+
+});

@@ -1,6 +1,6 @@
 <?php
 
-namespace Weijiajia\Exception;
+namespace Weijiajia\IpAddress\Exception;
 
 use Saloon\Exceptions\Request\ClientException;
 

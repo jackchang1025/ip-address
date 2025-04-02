@@ -1,13 +1,14 @@
 <?php
 
-namespace Weijiajia\Requests;
+namespace Weijiajia\IpAddress\Requests;
 
 use JsonException;
-use Weijiajia\Exception\IpLookupException;
-use Weijiajia\Responses\IpResponse;
+use Weijiajia\IpAddress\Exception\IpLookupException;
+use Weijiajia\IpAddress\IpResponse;
 use Saloon\Enums\Method;
-use Saloon\Http\Request;
 use Saloon\Http\Response;
+use Weijiajia\IpAddress\Request;
+use GuzzleHttp\RequestOptions;
 
 class Ip138Request extends Request
 {
@@ -16,7 +17,7 @@ class Ip138Request extends Request
      */
     protected Method $method = Method::GET;
 
-    public function __construct(protected string $token, protected string $ip, protected string $dataType = 'jsonp')
+    public function __construct(public string $token, public ?string $ip = null, public string $dataType = 'jsonp')
     {
     }
 
@@ -60,7 +61,7 @@ class Ip138Request extends Request
      * @throws IpLookupException
      * @throws JsonException
      */
-    public function createDtoFromResponse(Response $response): IpResponse
+    public function createResponse(Response $response): IpResponse
     {
         $json = $response->json();
         if (!isset($json['data']) || !is_array($json['data']) || count($json['data']) < 3) {
@@ -71,6 +72,7 @@ class Ip138Request extends Request
             'city' => $response->json('data')[2],
             'addr' => $response->json('addr'),
             'ip'   => $response->json('ip'),
+            'proxy' => $response->getPendingRequest()->config()->get(RequestOptions::PROXY),
         ]);
     }
 }

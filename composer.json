@@ -17,18 +17,28 @@
     ],
     "require": {
         "php": "^8.2",
-        "saloonphp/saloon": "^3.10",
+        "ext-mbstring": "*",
+        "illuminate/support": "^12.5",
         "psr/log": "^3.0",
-      "ext-mbstring": "*"
+        "saloonphp/saloon": "^3.10",
+        "weijiajia/saloonphp-http-proxy-plugin": "dev-main",
+        "weijiajia/saloonphp-logs-plugin": "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Weijiajia\\": "src/"
+            "Weijiajia\\IpAddress\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Weijiajia\\IpAddress\\IpAddressServiceProvider"
+            ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Weijiajia\\Tests\\": "tests/"
+            "Weijiajia\\IpAddress\\Tests\\": "tests/"
         }
     },
     "config": {
@@ -37,7 +47,7 @@
             "pestphp/pest-plugin": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
         "pestphp/pest": "^3.2"

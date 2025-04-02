@@ -1,13 +1,14 @@
 <?php
 
-namespace Weijiajia\Requests;
+namespace Weijiajia\IpAddress\Requests;
 
 use JsonException;
-use Weijiajia\Exception\IpLookupException;
-use Weijiajia\Responses\IpResponse;
+use Weijiajia\IpAddress\Exception\IpLookupException;
+use Weijiajia\IpAddress\IpResponse;
 use Saloon\Enums\Method;
-use Saloon\Http\Request;
 use Saloon\Http\Response;
+use GuzzleHttp\RequestOptions;
+use Weijiajia\IpAddress\Request;
 
 class PconLineRequest extends Request
 {
@@ -16,7 +17,7 @@ class PconLineRequest extends Request
      */
     protected Method $method = Method::GET;
 
-    public function __construct(public string $ip)
+    public function __construct(public ?string $ip = null)
     {
     }
 
@@ -51,7 +52,7 @@ class PconLineRequest extends Request
      * @return IpResponse
      * @throws JsonException|IpLookupException
      */
-    public function createDtoFromResponse(Response $response): IpResponse
+    public function createResponse(Response $response): IpResponse
     {
 
         // 获取原始响应内容
@@ -79,7 +80,7 @@ class PconLineRequest extends Request
             'ip'        => $data['ip'] ?? null,
             'city_code' => $data['cityCode'] ?? null,
             'pro_code'  => $data['proCode'] ?? null,
-            'is_chain'  => (isset($data['proCode']) && $data['proCode'] !== '999999'),
+            'proxy'     => $response->getPendingRequest()->config()->get(RequestOptions::PROXY),
         ]);
     }
 }
