@@ -4,8 +4,9 @@ namespace Weijiajia\IpAddress;
 
 use Saloon\Repositories\ArrayStore;
 use Saloon\Traits\Responses\HasResponse;
+use Saloon\Contracts\DataObjects\WithResponse;
 
-class IpResponse extends ArrayStore
+class IpResponse extends ArrayStore implements WithResponse
 {
     use HasResponse;
 

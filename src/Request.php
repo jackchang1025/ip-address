@@ -11,7 +11,7 @@ use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Http\Faking\MockClient;
 use Weijiajia\IpAddress\Contracts\Request as RequestContract;
-use Saloon\Traits\Responses\HasResponse;
+use Saloon\Contracts\DataObjects\WithResponse;
 
 abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyManagerInterface,RequestContract
 {
@@ -37,7 +37,7 @@ abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyMa
 
         $dataObject = $request->createResponse($response);
 
-        if ($dataObject instanceof HasResponse) {
+        if ($dataObject instanceof WithResponse) {
             $dataObject->setResponse($response);
         }
 
