@@ -3,6 +3,7 @@
 namespace Weijiajia\IpAddress;
 
 use Saloon\Http\SoloRequest;
+use Saloon\Http\Request as SaloonRequest;
 use Weijiajia\SaloonphpLogsPlugin\Contracts\HasLoggerInterface;
 use Weijiajia\SaloonphpHttpProxyPlugin\Contracts\ProxyManagerInterface;
 use Weijiajia\SaloonphpLogsPlugin\HasLogger;
@@ -12,6 +13,8 @@ use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Http\Faking\MockClient;
 use Weijiajia\IpAddress\Contracts\Request as RequestContract;
 use Saloon\Contracts\DataObjects\WithResponse;
+use Saloon\Exceptions\Request\FatalRequestException;
+use Saloon\Exceptions\Request\RequestException;
 
 abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyManagerInterface,RequestContract
 {
@@ -19,6 +22,13 @@ abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyMa
     use AcceptsJson;
     use HasProxy;
     use AlwaysThrowOnErrors;
+
+    public ?int $tries = 5;
+
+    public function handleRetry(FatalRequestException|RequestException $exception, SaloonRequest $request): bool
+    {
+        return $exception instanceof FatalRequestException;
+    }
 
 
     /**
