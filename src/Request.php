@@ -15,7 +15,7 @@ use Weijiajia\IpAddress\Contracts\Request as RequestContract;
 use Saloon\Contracts\DataObjects\WithResponse;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
-
+use Saloon\Exceptions\Request\ServerException;
 abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyManagerInterface,RequestContract
 {
     use HasLogger;
@@ -27,7 +27,7 @@ abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyMa
 
     public function handleRetry(FatalRequestException|RequestException $exception, SaloonRequest $request): bool
     {
-        return $exception instanceof FatalRequestException;
+        return $exception instanceof FatalRequestException || $exception instanceof ServerException;
     }
 
 
