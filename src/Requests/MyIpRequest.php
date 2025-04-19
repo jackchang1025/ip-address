@@ -37,7 +37,22 @@ class MyIpRequest extends Request
 
     public function hasRequestFailed(Response $response): ?bool
     {
-        return empty($response->json('country_code')) || empty($response->json('timezone'));
+        if($response->isServerError() || $response->isClientError()){
+            return true;
+        }
+        
+        try{
+
+            $data = $response->json();
+            if(empty($data['country_code']) || empty($data['timezone'])){
+                return true;
+            }
+
+            return null;
+
+        }catch(\JsonException $e){
+            return true;
+        }
     }
 
 
