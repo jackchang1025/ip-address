@@ -35,6 +35,11 @@ class MyIpRequest extends Request
         ];
     }
 
+    public function hasRequestFailed(Response $response): ?bool
+    {
+        return empty($response->json('country_code')) || empty($response->json('timezone'));
+    }
+
 
     public function createResponse(Response $response): IpResponse
     {
