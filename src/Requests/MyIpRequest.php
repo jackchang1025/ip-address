@@ -37,7 +37,7 @@ class MyIpRequest extends Request
 
     public function hasRequestFailed(Response $response): ?bool
     {
-        if($response->isServerError() || $response->isClientError()){
+        if($response->serverError() || $response->clientError()){
             return true;
         }
         
