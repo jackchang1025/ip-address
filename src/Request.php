@@ -14,9 +14,9 @@ use Saloon\Http\Faking\MockClient;
 use Weijiajia\IpAddress\Contracts\Request as RequestContract;
 use Saloon\Contracts\DataObjects\WithResponse;
 use Saloon\Exceptions\Request\FatalRequestException;
-use Saloon\Exceptions\Request\RequestException;
 use Saloon\Exceptions\Request\ServerException;
 use Saloon\Exceptions\Request\Statuses\ForbiddenException;
+use Saloon\Exceptions\Request\RequestException;
 abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyManagerInterface,RequestContract
 {
     use HasLogger;
@@ -28,7 +28,7 @@ abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyMa
 
     public function handleRetry(FatalRequestException|RequestException $exception, SaloonRequest $request): bool
     {
-        return $exception instanceof FatalRequestException || $exception instanceof ServerException || $exception instanceof ForbiddenException;
+        return $exception instanceof FatalRequestException || $exception instanceof ServerException || $exception instanceof ForbiddenException || $exception instanceof RequestException;
     }
 
 
