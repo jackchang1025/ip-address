@@ -7,7 +7,7 @@ use Weijiajia\IpAddress\Request;
 use Weijiajia\IpAddress\Requests\MyIpRequest;
 use Weijiajia\IpAddress\Requests\PconLineRequest;
 use Weijiajia\IpAddress\Requests\Ip138Request;
-
+use Weijiajia\IpAddress\Requests\IpDecodoRequest;
 class IpAddressManager extends Manager
 {
     
@@ -43,6 +43,11 @@ class IpAddressManager extends Manager
     protected function createIp138Driver(): Request
     {
         return $this->container->make(Ip138Request::class,['token' => $this->config->get('ip-address.ip138.token')]);
+    }
+
+    protected function createIpDecodoDriver(): Request
+    {
+        return $this->container->make(IpDecodoRequest::class);
     }
 
     /**

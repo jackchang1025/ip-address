@@ -24,4 +24,8 @@ return [
         'ip138' => [
             'token' => env('IP138_TOKEN'),
         ],
+
+        'ipdecodo' => [
+            
+        ],
 ];
