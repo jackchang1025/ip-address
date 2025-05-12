@@ -18,9 +18,9 @@
     "require": {
         "php": "^8.2",
         "ext-mbstring": "*",
-        "illuminate/support": "^12.0",
         "psr/log": "^3.0",
         "saloonphp/saloon": "^3.10",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
         "weijiajia/saloonphp-http-proxy-plugin": "dev-main",
         "weijiajia/saloonphp-logs-plugin": "dev-main"
     },
