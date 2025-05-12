@@ -4,7 +4,7 @@ namespace Weijiajia\IpAddress;
 
 use Illuminate\Support\Manager;
 use Weijiajia\IpAddress\Request;
-use Weijiajia\IpAddress\Requests\MyIpRequest;
+use Weijiajia\IpAddress\Requests\ApiIpCcRequest;
 use Weijiajia\IpAddress\Requests\PconLineRequest;
 use Weijiajia\IpAddress\Requests\Ip138Request;
 use Weijiajia\IpAddress\Requests\IpDecodoRequest;
@@ -30,9 +30,9 @@ class IpAddressManager extends Manager
         return parent::driver($driver);
     }
 
-    protected function createMyipDriver(): Request
+    protected function createApiIpCcDriver(): Request
     {
-        return $this->container->make(MyIpRequest::class);
+        return $this->container->make(ApiIpCcRequest::class);
     }
 
     protected function createPconlineDriver(): Request

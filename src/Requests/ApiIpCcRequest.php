@@ -8,13 +8,17 @@ use Saloon\Http\Response;
 use Weijiajia\IpAddress\IpResponse;
 use GuzzleHttp\RequestOptions;
 
-class MyIpRequest extends Request
+class ApiIpCcRequest extends Request
 {
     protected Method $method = Method::GET;
 
+    public function __construct(public ?string $ip = null)
+    {
+    }
+
     public function resolveEndpoint(): string
     {
-        return 'http://api.ip.cc';
+        return "http://api.ip.cc/{$this->ip}";
     }
 
     public function defaultHeaders(): array
