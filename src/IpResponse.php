@@ -6,6 +6,22 @@ use Saloon\Repositories\ArrayStore;
 use Saloon\Traits\Responses\HasResponse;
 use Saloon\Contracts\DataObjects\WithResponse;
 
+/**
+ * @method bool isCached()
+ * @method bool isFromCache()
+ * @method mixed|null json(string|null $key = null, mixed $default = null)
+ * @method string body()
+ * @method int status()
+ * @method bool successful()
+ * @method bool ok()
+ * @method bool redirect()
+ * @method bool failed()
+ * @method bool clientError()
+ * @method bool serverError()
+ * @method array headers()
+ * @method \Illuminate\Http\Client\Response|\Psr\Http\Message\ResponseInterface toPsrResponse()
+ * @method \Saloon\Http\PendingRequest getPendingRequest()
+ */
 class IpResponse extends ArrayStore implements WithResponse
 {
     use HasResponse;
