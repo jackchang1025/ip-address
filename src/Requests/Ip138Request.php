@@ -17,7 +17,7 @@ class Ip138Request extends Request
      */
     protected Method $method = Method::GET;
 
-    public function __construct(public string $token, public ?string $ip = null, public string $dataType = 'jsonp')
+    public function __construct(public string $token)
     {
     }
 
@@ -50,8 +50,8 @@ class Ip138Request extends Request
     public function defaultQuery(): array
     {
         return [
-            'ip'       => $this->ip,
-            'datatype' => $this->dataType,
+            'ip'       => $this->config()->get('ip'),
+            'datatype' => $this->config()->get('datatype', 'jsonp'),
         ];
     }
 

@@ -8,9 +8,10 @@ use Weijiajia\IpAddress\Requests\ApiIpCcRequest;
 use Weijiajia\IpAddress\Requests\PconLineRequest;
 use Weijiajia\IpAddress\Requests\Ip138Request;
 use Weijiajia\IpAddress\Requests\IpDecodoRequest;
+
 class IpAddressManager extends Manager
 {
-    
+
     /**
      * 获取默认驱动名称
      *
@@ -25,7 +26,7 @@ class IpAddressManager extends Manager
      * @param $driver
      * @return Request
      */
-    public function driver($driver = null):Request
+    public function driver($driver = null): Request
     {
         return parent::driver($driver);
     }
@@ -42,7 +43,7 @@ class IpAddressManager extends Manager
 
     protected function createIp138Driver(): Request
     {
-        return $this->container->make(Ip138Request::class,['token' => $this->config->get('ip-address.ip138.token')]);
+        return $this->container->make(Ip138Request::class, ['token' => $this->config->get('ip-address.ip138.token')]);
     }
 
     protected function createIpDecodoDriver(): Request

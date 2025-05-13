@@ -17,6 +17,7 @@ use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\ServerException;
 use Saloon\Exceptions\Request\Statuses\ForbiddenException;
 use Saloon\Exceptions\Request\RequestException;
+
 abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyManagerInterface,RequestContract
 {
     use HasLogger;
@@ -35,8 +36,10 @@ abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyMa
     /**
      * Send a request synchronously
      */
-    public function request(?MockClient $mockClient = null): IpResponse
+    public function request(?array $params = [], ?MockClient $mockClient = null): IpResponse
     {
+        $this->config()->merge($params);
+
         $response = $this->connector()->send($this, $mockClient);
 
         $request = $response->getPendingRequest()->getRequest();
@@ -45,7 +48,6 @@ abstract class Request extends SoloRequest implements HasLoggerInterface,ProxyMa
             throw new \Exception($request::class.' must implement RequestContract');
         }
         
-
         $dataObject = $request->createResponse($response);
 
         if ($dataObject instanceof WithResponse) {

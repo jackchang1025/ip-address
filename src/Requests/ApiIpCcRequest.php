@@ -12,19 +12,15 @@ class ApiIpCcRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(public ?string $ip = null)
-    {
-    }
-
     public function resolveEndpoint(): string
     {
-        return "http://api.ip.cc/{$this->ip}";
+        return "http://api.ip.cc/{$this->config()->get('ip')}";
     }
 
     public function defaultHeaders(): array
     {
         return [
-           'Accept'             => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'Accept'             => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
             'Accept-Encoding'    => 'gzip, deflate',
             'Accept-Language'    => 'en-US,en;q=0.9',
             'Connection'         => 'keep-alive',
@@ -41,20 +37,19 @@ class ApiIpCcRequest extends Request
 
     public function hasRequestFailed(Response $response): ?bool
     {
-        if($response->serverError() || $response->clientError()){
+        if ($response->serverError() || $response->clientError()) {
             return true;
         }
-        
-        try{
+
+        try {
 
             $data = $response->json();
-            if(empty($data['country_code']) || empty($data['timezone'])){
+            if (empty($data['country_code']) || empty($data['timezone'])) {
                 return true;
             }
 
             return null;
-
-        }catch(\JsonException $e){
+        } catch (\JsonException $e) {
             return true;
         }
     }

@@ -20,7 +20,7 @@ class IpDecodoRequest extends Request
     public function defaultHeaders(): array
     {
         return [
-           'Accept'             => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'Accept'             => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
             'Accept-Encoding'    => 'gzip, deflate',
             'Accept-Language'    => 'en-US,en;q=0.9',
             'Connection'         => 'keep-alive',
@@ -37,19 +37,18 @@ class IpDecodoRequest extends Request
 
     public function hasRequestFailed(Response $response): ?bool
     {
-        if($response->serverError() || $response->clientError()){
+        if ($response->serverError() || $response->clientError()) {
             return true;
         }
-        
-        try{
 
-            if(empty($response->json('country.code')) || empty($response->json('city.time_zone'))){
+        try {
+
+            if (empty($response->json('country.code')) || empty($response->json('city.time_zone'))) {
                 return true;
             }
 
             return null;
-
-        }catch(\JsonException $e){
+        } catch (\JsonException $e) {
             return true;
         }
     }

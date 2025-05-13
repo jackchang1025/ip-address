@@ -17,15 +17,10 @@ class PconLineRequest extends Request
      */
     protected Method $method = Method::GET;
 
-    public function __construct(public ?string $ip = null)
-    {
-    }
-
     public function defaultQuery(): array
     {
-
         return [
-            'ip' => $this->ip,
+            'ip' => $this->config()->get('ip'),
         ];
     }
 
